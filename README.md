@@ -1,8 +1,11 @@
 # mongo_inventory
 
-Ansible inventory backed by mongodb
+## Ansible inventory backed by mongodb
 
-Estrutura: 
+This is a project to develop an ansible dynamic inventory plugin backed by MongoDB. The inventory can be managed using REST calls, implemented using FlaskRestPlus. The inventory plugin must receive an inventory name, get the respective inventory via API and parse it to create the in-memory inventory. Hosts and groups can be manipulated individually via API, or the hole inventory can be edited in .ini format. 
+
+## Directory structure:
+```
 ansible_plugin/ - ansible inventory plugins examples
 app/auth/ 
 app/common/ 
@@ -11,8 +14,11 @@ app/users
 app/utils/
 inventory_files - inventory examples
 scripts - script examples
+```
+## MongoDB document structure
+See app/inventory/inventory.json
 
-ToDo:
+## To Do:
 - api/v1/auth - OK
 - api/v1/users - OK
 - api/v1/inventory
@@ -22,6 +28,7 @@ ToDo:
 	- delete inventory
 - api/v1/hosts
 	- include host
+	- get host
 	- edit host
 	- delete host
 - api/v1/groups
