@@ -2,3 +2,6 @@ env/
 db-data/
 redis_data/
 .git_gitlab/
+.vscode/
+__pycache__/
+app.log

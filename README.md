@@ -32,3 +32,4 @@ ToDo:
 - ini_to_json.py
 - json_to_ini.py
 
+- ansible inventory plugin
