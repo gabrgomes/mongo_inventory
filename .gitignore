@@ -1,3 +1,4 @@
 env/
 db-data/
 redis_data/
+.git_gitlab/
