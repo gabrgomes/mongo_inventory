@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 a2882f4a9671ccfbe05c7ff44cca6887bc69d6c7 gabrgomes <gabrgomes@penguin> 1562189437 -0300	clone: from git@gitlab.com:gabrgomes/mongo_inventory.git
+a2882f4a9671ccfbe05c7ff44cca6887bc69d6c7 4e505ecfff65d43d5696350aaec24a643358bcf1 gabrgomes <gabrgomes@penguin> 1562214356 -0300	commit: l
+4e505ecfff65d43d5696350aaec24a643358bcf1 4e505ecfff65d43d5696350aaec24a643358bcf1 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562627851 -0300	reset: moving to HEAD
+4e505ecfff65d43d5696350aaec24a643358bcf1 684c8c4b141666bd457dafbfaa66535069729795 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562627940 -0300	commit: https://nosqlly.com/full-stack-tutorial-todo-app-react-flask-mongodb-part-2/
+684c8c4b141666bd457dafbfaa66535069729795 3fc6f437d60663e9fcc20b4728d1489c37a31a49 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562698532 -0300	commit: inventory example
+3fc6f437d60663e9fcc20b4728d1489c37a31a49 62dc358cb91467f03676cf8de4f8f80a59dfc338 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562799398 -0300	commit: tutorial part3
+62dc358cb91467f03676cf8de4f8f80a59dfc338 8fa9e969c0f4e66be6d21b87831d10ffd851c17f F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562864679 -0300	commit: tutorial complete
+8fa9e969c0f4e66be6d21b87831d10ffd851c17f 287a77d4562e6090fd4220315e58a8bc27cf5825 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562874614 -0300	commit: start inventory development
+287a77d4562e6090fd4220315e58a8bc27cf5825 b69826d8deda48a006fbaf0194f7df63f389a868 F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562954578 -0300	commit: create inventory
+b69826d8deda48a006fbaf0194f7df63f389a868 601a6c28523ef8a9933185bbe1969748f7aa8f9e F3544855 Gabriel Gomes <gabriel.gomes@bb.com.br> 1562956284 -0300	commit: clean repo

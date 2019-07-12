@@ -1,0 +1,28 @@
+version: '2.0'
+services:
+  mongo:
+    image: atf.intranet.bb.com.br:5001/mongo
+    #restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db-data:/data/db/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: todo_inventory
+
+  redis:
+    image: atf.intranet.bb.com.br:5001/redis
+    #restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    volumes:
+      - ./redis_data:/var/redis/data
+
+volumes:
+  db-data:
+  redis_data:

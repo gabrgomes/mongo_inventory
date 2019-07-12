@@ -1,0 +1,69 @@
+{
+    "inventory_name": "correioweb-prod",
+    "sigla": "scb",
+    "hosts": {
+        "srcbsa01010.dispositivos.bb.com.br": {
+            "groups": ["correio10"],
+            "vars": {}
+        },
+        "srcbsa01011.dispositivos.bb.com.br": {
+            "groups": ["correio10"],
+            "vars": {}
+        },
+        "srcbsa01020.dispositivos.bb.com.br": {
+            "groups": ["correio20"],
+            "vars": {}
+        },
+        "srcbsa01021.dispositivos.bb.com.br": {
+            "groups": ["correio20"],
+            "vars": {}
+        },
+        "srcbsa01040.bb.com.br": {
+            "groups": ["correioadmin"],
+            "vars": {
+                "dominstalltype": "admin"
+            }
+        },
+
+ 
+    },
+    "groups": {
+        "correio10": {
+            "children": [],
+            "vars": {
+                "nsc_host": "lbic2intranet01.dispositivos.bb.com.br"
+            }
+        },
+        "correio20": {
+            "children": [],
+            "vars": {
+                "nsc_host": "lbic3intracorp01.dispositivos.bb.com.br"
+            }
+        },
+        "correioall": {
+            "children": ["correio10","correio20"],
+            "vars": {
+            }
+        },
+        "correioadmin": {
+            "children": [],
+            "vars": {
+            }
+        },
+        "all": {
+            "vars": {
+                "correio_url": "https://correioweb.bb.com.br",
+                "correio_vip": "172.17.78.215",
+                "correio_vip_dr": "172.30.114.10",
+                "SAMETIMEPROXY": "https://im.bb.com.br",
+                "MEETINGSPROXY": "https://reuniao.bb.com.br",
+                "NTS_EXTERNAL_URL": "https://correioweb.bb.com.br/traveler",
+                "CONNECTIONS": "https://connections.bb.com.br",
+                "HUMANOGRAMA": "https://humanograma.intranet.bb.com.br",
+                "DominoAdminCN": "SRCBSA01040/BancodoBrasil",
+                "dominstalltype": "correio",
+                "env": "prod"
+            }
+        }             
+    }
+}
