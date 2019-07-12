@@ -4,6 +4,14 @@
 
 This is a project to develop an ansible dynamic inventory plugin backed by MongoDB. The inventory can be managed using REST calls, implemented using FlaskRestPlus. The inventory plugin must receive an inventory name, get the respective inventory via API and parse it to create the in-memory inventory. Hosts and groups can be manipulated individually via API, or the hole inventory can be edited in .ini format. 
 
+## Quick Start
+```
+pip3 install -r requirements.txt
+docker-compose up -d
+python3 wsgi.py
+```
+Access http://localhost:5000
+
 ## Directory structure:
 ```
 ansible_plugin/ - ansible inventory plugins examples
