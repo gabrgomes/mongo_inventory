@@ -1,0 +1,33 @@
+//find all documents in collection
+db.inventories.find()
+
+//find hosts in vmw inventories that belong to  group 1
+db.inventories.find({"sigla": "vmw", "hosts.host_groups": "group1"})
+
+//find hosts that belong to  group 1
+db.inventories.find(
+    {
+       "hosts": { $elemMatch: { host_groups: "group1"} } 
+    }
+)
+
+//remove group1 from all hosts in document
+db.inventories.update(
+    { "_id": ObjectId("5d28ca89ccce1dd3e5a519a3") },
+    { $pull: { "hosts.$[].host_groups": "group1" } }
+)
+
+//add group1 in all hosts in document
+db.inventories.update(
+    { "_id": ObjectId("5d28ca89ccce1dd3e5a519a3") },
+    { $push: { "hosts.$[].host_groups": "group1" } }
+)
+
+
+//add group1 if it does not exist (not working)
+db.inventories.update(
+    { "_id": ObjectId("5d28ca89ccce1dd3e5a519a3") },
+    { $addToSet: { "groups": "group1" } }
+)
+
+db.graph.update_one({"user_id": a.url}, {"$addToSet": {"following": {"$each": urls}}})
