@@ -31,18 +31,18 @@ See app/inventory/inventory.json
 - api/v1/users - OK
 - api/v1/inventory
 	- create inventory - OK
-	- get inventories
-	- edit inventory
-	- delete inventory
+	- get inventories - OK
+	- archive inventory - OK
+	- reactivate inventory - OK
+	- delete inventory - OK
 - api/v1/hosts
-	- include host
-	- get host
-	- edit host
-	- delete host
+	- include host - OK (*to do: create missing groups)
+	- edit host - OK (*to do: don't allow dupplicated data)
+	- delete host - OK
 - api/v1/groups
-	- include group
-	- edit group
-	- delete group
+	- include group - OK
+	- edit group - OK (*to do: don't allow dupplicated data)
+	- delete group - OK
 
 - ini_to_json.py
 - json_to_ini.py

@@ -23,3 +23,50 @@ class InventoryService(object):
         _id = base_obj.insert(COLLECTIONS['INVENTORIES'], payload)
         print(_id, type(_id))
  
+    def get_inventories(self, sigla, state):
+        """
+        Get Inventories for a particular system
+        :param sigla:
+        :return:
+        """
+        if state == 'active':
+            query = {"sigla": sigla, "meta.is_deleted": False, "meta.is_archived": False}
+        elif state == 'archived':
+            query = {"sigla": sigla, "meta.is_archived": True}
+        elif state == 'deleted':
+            query = {"sigla": sigla, "meta.is_deleted": True}
+        count, records = base_obj.get(COLLECTIONS['INVENTORIES'], query)
+        return records
+
+    def delete_inventory(self, id):
+        """
+        Delete inventory
+        :return:
+        """
+        count, records = base_obj.get(COLLECTIONS['INVENTORIES'], {"_id": ObjectId(id)})
+        if count != 1:
+            abort(400, "inventory Already Deleted")
+        payload = update_timestamp()
+        payload["meta.is_archived"], payload["meta.is_deleted"] = False, True
+        base_obj.update(COLLECTIONS['INVENTORIES'], {"_id": ObjectId(id)}, 
+                        {"$set": payload})
+
+    def archive_inventory(self, id):
+        """
+        Archive inventory
+        :return:
+        """
+        payload = update_timestamp()
+        payload["meta.is_archived"], payload["meta.is_deleted"] = True, False
+        base_obj.update(COLLECTIONS['INVENTORIES'], {"_id": ObjectId(id)},
+                        {"$set": payload})
+
+    def change_status(self, id):
+        """
+        Change Status to Active
+        :return:
+        """
+        payload = update_timestamp()
+        payload["meta.is_archived"], payload["meta.is_deleted"] = False, False
+        base_obj.update(COLLECTIONS['INVENTORIES'], {"_id": ObjectId(id)},
+                        {"$set": payload})

@@ -30,19 +30,26 @@ class Inventory(Resource):
         inventory_service.create_inventory(payload)
         return {'Message': "Inventory created successfully"}
 
-'''
-    @taskrooms_ns.expect(state_parser)
+
+@inventory_ns.expect(auth_parser)
+@inventory_ns.route('/<string:sigla>')
+class Inventory(Resource):
+    """
+    Inventories by sigla
+    """
+    @inventory_ns.expect(state_parser)
     @jwt_required
-    def get(self):
+    def get(self, sigla):
         """
-        Get Active, Archived and Deleted Rooms
+        Get Active, Archived and Deleted Inventories
+        :param sigla: 
         :return:
         """
         email = get_jwt_identity()
         args = state_parser.parse_args()
         if self.validate_state(args['State']):
-            response = taskroom_service.get_rooms(email, state=args['State'])
-            return {'Message': "Rooms rendered successfully", 'records': marshal(response, room_response)}
+            response = inventory_service.get_inventories(sigla, state=args['State'])
+            return {'Message': "Inventories rendered successfully", 'records': marshal(response, inventory_response)}
         else:
             return {"Message": "State is not in (active|archived|deleted)"}
     @staticmethod
@@ -52,68 +59,53 @@ class Inventory(Resource):
         else:
             return False
 
-@taskrooms_ns.expect(auth_parser)
-@taskrooms_ns.route('/<string:id>')
-class RoomOperations(Resource):
-    """
-    Edit and Delete Rooms
-    """
-    @jwt_required
-    @taskrooms_ns.expect(room_request)
-    def put(self, id):
-        """
-        Edit a Room Name
-        :param id:
-        :return:
-        """
-        payload = marshal(api.payload, room_request)
-        taskroom_service.update_room(id, payload)
-        return {'Message': "Room updated successfully"}
-
-
+@inventory_ns.expect(auth_parser)
+@inventory_ns.route('/delete/<string:id>')
+class Inventory(Resource):
     @jwt_required
     def delete(self, id):
         """
-        Delete a Room
+        Delete an Inventory
         :param id:
         :return:
         """
         payload = api.payload
-        taskroom_service.delete_room(id)
-        return {'Message': "Room deleted successfully"}
+        inventory_service.delete_inventory(id)
+        return {'Message': "Inventory deleted successfully"}
 
-@taskrooms_ns.expect(auth_parser)
-@taskrooms_ns.route('/archive/<string:id>')
-class RoomOperations(Resource):
+
+@inventory_ns.expect(auth_parser)
+@inventory_ns.route('/archive/<string:id>')
+class Inventory(Resource):
     """
-    Archive a room
+    Archive an Inventory
     """
     @jwt_required
     def put(self, id):
         """
-        Archive a Room
+        Archive an Inventory
         :param id:
         :return:
         """
-        taskroom_service.archive_room(id)
-        return {'Message': "Room archived successfully"}
+        inventory_service.archive_inventory(id)
+        return {'Message': "Inventory archived successfully"}
 
-@taskrooms_ns.expect(auth_parser)
-@taskrooms_ns.route('/undo/<string:id>')
-class RoomOperations(Resource):
+@inventory_ns.expect(auth_parser)
+@inventory_ns.route('/undo/<string:id>')
+class Inventory(Resource):
     """
-    Move Rooms to Active Status
+    Move Inventory to Active Status
     """
     @jwt_required
     def put(self, id):
         """
-        Move Rooms to Active Status
+        Move Inventory to Active Status
         :param id:
         :return:
         """
-        taskroom_service.change_status(id)
-        return {'Message': "Room status changed to Active"}
-
+        inventory_service.change_status(id)
+        return {'Message': "Inventory status changed to Active"}
+'''
 @taskrooms_ns.expect(auth_parser)
 @taskrooms_ns.route('/invite/<string:id>')
 class RoomOperations(Resource):

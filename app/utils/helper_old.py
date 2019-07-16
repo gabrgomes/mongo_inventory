@@ -15,8 +15,8 @@ def custom_marshal(model, template, option='create', prefix=""):
             mod_data = {}
             for key, value in data.items():
                 mod_data[prefix + "." + key] = value
-            mod_data['meta.updated_on'] = get_current_time()
-            mod_data['meta.updated_by'] = email
+            mod_data[prefix + "." + 'meta.updated_on'] = get_current_time()
+            mod_data[prefix + "." + 'meta.updated_by'] = email
             data = mod_data
         else:
             data['meta']['updated_on'] = get_current_time()
@@ -26,6 +26,10 @@ def custom_marshal(model, template, option='create', prefix=""):
 def update_timestamp(prefix=""):
     email = get_jwt_identity()
     data = {}
-    data['meta.updated_on'] = get_current_time()
-    data['meta.updated_by'] = email
+    if prefix:
+        data[prefix + "." + 'meta.updated_on'] = get_current_time()
+        data[prefix + "." + 'meta.updated_by'] = email
+    else:
+        data['meta.updated_on'] = get_current_time()
+        data['meta.updated_by'] = email
     return data

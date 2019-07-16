@@ -9,6 +9,12 @@ api.add_namespace(auth_ns, '/api/v1/auth')
 from app.inventory.views import inventory_ns
 api.add_namespace(inventory_ns, '/api/v1/inventory')
 
+from app.hosts.views import hosts_ns
+api.add_namespace(hosts_ns, '/api/v1/hosts')
+
+from app.groups.views import groups_ns
+api.add_namespace(groups_ns, '/api/v1/groups')
+
 '''
 from app.task_rooms.views import taskrooms_ns
 api.add_namespace(taskrooms_ns, '/api/v1/task_rooms')
