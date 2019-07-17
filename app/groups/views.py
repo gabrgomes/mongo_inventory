@@ -1,7 +1,7 @@
 from flask_restplus import Namespace, Resource, marshal
 from flask_jwt_extended import jwt_required
 from app import api
-from app.groups.models import group_request
+from app.groups.models import group_request, group_edit
 from app.groups.service import GroupsService
 from app.common.models import auth_parser
 
@@ -9,20 +9,20 @@ groups_ns = Namespace('groups', description="Groups operations")
 groups_service = GroupsService()
 
 @groups_ns.expect(auth_parser)
-@groups_ns.route('/<string:id>')
+@groups_ns.route('/<string:inventory_id>')
 class Groups(Resource):
     """
     Groups Operations - Pass inventory id as input
     """
     @jwt_required
     @groups_ns.expect(group_request)
-    def post(self, id):
+    def post(self, inventory_id):
         """
         Add a Group to the Inventory
         :return:
         """
         payload = marshal(api.payload, group_request)
-        groups_service.create_group(id, payload)
+        groups_service.create_group(inventory_id, payload)
         return {'status': "Group created successfully"}
 
 @groups_ns.expect(auth_parser)
@@ -32,7 +32,7 @@ class Groups(Resource):
     Group Operations PUT - Pass inventory id and Group name as input
     """
     @jwt_required
-    @groups_ns.expect(group_request)
+    @groups_ns.expect(group_edit)
     def put(self, inventory_id, group_name):
         """
         Edit a Group
@@ -40,7 +40,7 @@ class Groups(Resource):
         :return:
         """
         payload = marshal(api.payload, group_request)
-        #group_name =  payload['group_name']
+        payload['group_name'] = group_name
         groups_service.update_group(inventory_id, group_name, payload)
         return {'status': "Group updated successfully"}
 

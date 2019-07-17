@@ -9,6 +9,6 @@ group_request = api.model('group_request', {
 })
 
 
-group_record = api.inherit('group_record', group_request, {
-#    'meta': fields.Nested(meta)
+group_edit = api.model('group_edit', {
+    'group_vars': fields.Raw(default={})
 })

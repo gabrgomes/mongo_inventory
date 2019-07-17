@@ -29,3 +29,10 @@ def update_timestamp(prefix=""):
     data['meta.updated_on'] = get_current_time()
     data['meta.updated_by'] = email
     return data
+
+def update_meta():
+    email = get_jwt_identity()
+    data = {}
+    data['meta.updated_on'] = get_current_time()
+    data['meta.updated_by'] = email
+    return data

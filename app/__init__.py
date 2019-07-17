@@ -26,7 +26,7 @@ logging.basicConfig(filename="app.log",
 logger = logging.getLogger()
 
 #Create api object for flask restplus
-api = Api(application, title='Todo App', description='Todo App', version=1.0)
+api = Api(application, title='Inventory App', description='Inventory App', version=1.0)
 
 #Create JWT object
 from flask_jwt_extended import JWTManager

@@ -1,8 +1,8 @@
 from flask import abort
 from bson import ObjectId
-from app.groups.models import group_request, group_record
+from app.groups.models import group_request
 from app.utils.db_utils import Base
-from app.utils.helper import custom_marshal, update_timestamp
+from app.utils.helper import custom_marshal, update_timestamp, update_meta
 from app.common.constants import COLLECTIONS
 base_obj = Base()
 
@@ -10,19 +10,21 @@ class GroupsService(object):
     """
     Groups Service
     """
-    def create_group(self, id, payload):
+    def create_group(self, inventory_id, payload):
         """
         Create a group in inventory
         :param payload:
         :return:
         """
-        payload = custom_marshal(payload, group_record, 'create')
+        #payload = custom_marshal(payload, group_record, 'create')
         #payload['_id'] = ObjectId()
         count, records = base_obj.get(COLLECTIONS['INVENTORIES'], {"groups.group_name": payload['group_name']})
         if count > 0:
             abort(400, "Group name Already Exists")
-        result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(id)},
+        result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)},
                                  {"$push": {'groups': payload}})
+        result_meta = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)},
+                                 {"$set": update_meta() })
 
     def update_group(self, inventory_id, group_name, payload):
         """
@@ -32,9 +34,11 @@ class GroupsService(object):
         :param payload:
         :return:
         """
-        payload = custom_marshal(payload, group_request, 'update', prefix="groups.$")
+#        payload = custom_marshal(payload, group_request, 'update', prefix="groups.$")
         result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id), "groups.group_name": group_name},
-                                 {"$set": payload})
+                                 {"$set": {'groups.$': payload}})
+        result_meta = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)},
+                                 {"$set": update_meta() })
 
     def delete_group(self, inventory_id, group_name):
         """
@@ -44,16 +48,13 @@ class GroupsService(object):
         :param payload:
         :return:
         """
-        payload = update_timestamp(prefix="groups.$")
- #       payload["tasks.$.meta.is_archived"], payload["tasks.$.meta.is_deleted"] = False, True
         result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)}, 
                                  {"$pull": { "groups": {"group_name": group_name}}})
         result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)}, 
                                  {"$pull": { "hosts.$[].host_groups": group_name }})
-        result = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)},
-                                 {"$set": payload})
-        print(result)
-
+        result_meta = base_obj.update(COLLECTIONS['INVENTORIES'], {'_id': ObjectId(inventory_id)},
+                                 {"$set": update_meta() })
+ 
 '''
     def update_group(self, inventory_id, group_id, payload):
         """
