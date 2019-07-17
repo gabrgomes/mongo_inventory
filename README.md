@@ -37,14 +37,21 @@ See app/inventory/inventory.json
 	- delete inventory - OK
 - api/v1/hosts
 	- include host - OK (*to do: create missing groups)
-	- edit host - OK (*to do: don't allow dupplicated data)
+	- edit host - OK 
 	- delete host - OK
+	- get host
 - api/v1/groups
 	- include group - OK
-	- edit group - OK (*to do: don't allow dupplicated data)
+	- edit group - OK 
 	- delete group - OK
+	- get group
 
 - ini_to_json.py
 - json_to_ini.py
 
 - ansible inventory plugin
+	- get all_vars
+	- get groups
+	- get group_vars
+	- get host_vars
+	- add_host
