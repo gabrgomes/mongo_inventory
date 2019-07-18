@@ -11,13 +11,16 @@ meta_inventory = api.inherit('meta_inventory', meta, {
     "is_archived": fields.Boolean(default=False)
 })
 
+
+from app.hosts.models import host_request
+from app.groups.models import group_request, group_edit
 inventory_record = api.inherit('inventory_record', inventory_request, {
-#    'hosts': fields.Nested(hosts),
-#    'groups': fields.Nested(groups),
-#    'all': fields.Nested(all),
-    'hosts': fields.List(fields.String),
-    'groups': fields.List(fields.String),
-    'all': fields.List(fields.String),
+    'hosts': fields.Nested(host_request),
+    'groups': fields.Nested(group_request),
+    'all': fields.Nested(group_edit),
+#    'hosts': fields.List(fields.Raw),
+#    'groups': fields.List(fields.Raw),
+#    'all': fields.List(fields.Raw),
     'meta': fields.Nested(meta_inventory)
 })
 

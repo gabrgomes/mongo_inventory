@@ -60,6 +60,25 @@ class Inventory(Resource):
             return False
 
 @inventory_ns.expect(auth_parser)
+@inventory_ns.route('/view/<string:id>')
+class Inventory(Resource):
+    """
+    Get Inventory
+    """
+    @jwt_required
+    def get(self, id):
+        """
+        Get Inventory
+        :param id: 
+        :return:
+        """
+        email = get_jwt_identity()
+        response = inventory_service.get_inventory(id)
+        #print(response[0])
+        #return response[0]
+        return marshal(response[0], inventory_response)
+
+@inventory_ns.expect(auth_parser)
 @inventory_ns.route('/delete/<string:id>')
 class Inventory(Resource):
     @jwt_required

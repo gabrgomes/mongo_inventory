@@ -8,7 +8,6 @@ group_request = api.model('group_request', {
     'group_vars': fields.Raw(default={})
 })
 
-
 group_edit = api.model('group_edit', {
     'group_vars': fields.Raw(default={})
 })

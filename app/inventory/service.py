@@ -38,6 +38,17 @@ class InventoryService(object):
         count, records = base_obj.get(COLLECTIONS['INVENTORIES'], query)
         return records
 
+    def get_inventory(self, id):
+        """
+        Get Inventory with id
+        :param id:
+        :return:
+        """
+        count, records = base_obj.get(COLLECTIONS['INVENTORIES'], {"_id": ObjectId(id)})
+        if count != 1:
+            abort(400, "Inventory not found")
+        return records
+
     def delete_inventory(self, id):
         """
         Delete inventory
